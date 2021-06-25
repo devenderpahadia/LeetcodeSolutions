@@ -1,0 +1,67 @@
+class Solution {
+public:
+    vector<int>S;
+    void union1(int u,int v)
+    {
+        if(S[u]<S[u])
+        {
+            S[u]+=S[v];
+            S[v]=u;
+        }
+        else
+        {
+            S[v]+=S[u];
+            S[u]=v;
+        }
+    }
+    int find(int i)
+    {
+        int x=i;
+        while(S[x]>0)
+        {
+            x=S[x];
+        }
+        return x;
+    }
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) 
+    {
+        int H[10001]={0};
+        vector<int>res;
+        for(int i=0;i<edges.size();i++)
+        {
+            for(int j=0;j<2;j++)
+            {
+                H[edges[i][j]]++;
+            }
+        }
+        int n=0;
+        for(int i=0;i<10001;i++)
+        {
+            if(H[i]>0)
+            {
+                n++;
+            }
+        }
+        while(n+1)
+        {
+            S.push_back(-1);
+            n--;
+        }
+        for(int i=0;i<edges.size();i++)
+        {
+            int u=edges[i][0];
+            int v=edges[i][1];
+            if(find(u)!=find(v))
+            {
+                union1(find(u),find(v));
+            }
+            else
+            {
+                res.clear();
+                res.push_back(u);
+                res.push_back(v);
+            }
+        }
+        return res;
+    }
+};
