@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string>grc(int n)
+    {
+        if(n==1)
+        {
+            vector<string>res;
+            res.push_back("0");
+            res.push_back("1");
+            return res;
+        }
+        vector<string>prev = grc(n-1);
+        vector<string>curr ;
+        for(int i=0;i<prev.size();i++)
+        {
+            curr.push_back("0"+prev[i]);
+        }
+        for(int i=prev.size()-1;i>=0;i--)
+        {
+            curr.push_back("1"+prev[i]);
+        }
+        return curr;
+    }
+    vector<int> grayCode(int n) 
+    {
+        vector<string>res = grc(n);
+        vector<int>ans;
+        for(int i=0;i<res.size();i++)
+        {
+            int k=0;
+            int x=0;
+            for(int j=n-1;j>=0;j--)
+            {
+                x=x + ((res[i][j]-'0')*pow(2,k));
+                k++;
+            }
+            //cout<<x<<endl;
+            ans.push_back(x);
+        }
+        return ans;
+    }
+};
