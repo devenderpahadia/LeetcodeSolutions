@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) 
+    {
+        int n=s.size();
+        int k=p.size();
+        vector<int>H(256);
+        vector<int>SH(256);
+        for(int i=0;i<k;i++)
+        {
+            H[p[i]]++;
+        }
+        int i=0,j=0;
+        vector<int>res;
+        while(j<n)
+        {
+            SH[s[j]]++;
+            if(j-i+1 < k)
+            {
+                j++;
+            }
+            else
+            {
+                if(H==SH)
+                {
+                    res.push_back(i);
+                }
+                SH[s[i]]--;
+                i++;
+                j++;
+            }
+        }
+        return res;
+    }
+};
