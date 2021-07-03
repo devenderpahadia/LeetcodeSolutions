@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int maxSumSubmatrix(vector<vector<int>>& matrix, int K) 
+    {
+        int max1=INT_MIN;
+        int row=matrix.size();
+        int col=matrix[0].size();
+        for(int i=0;i<col;i++)
+        {
+            vector<int>temp(row);
+            for(int j=i;j<col;j++)
+            {
+                int maxeh=0;
+                for(int k=0;k<row;k++)
+                {
+                    temp[k]+=matrix[k][j];
+                }
+                set<int> st;
+                st.insert(0);
+                int maxsf=INT_MIN;
+                for (int sum : temp) 
+                {
+                    maxeh += sum;
+                    set<int>::iterator it = st.lower_bound(maxeh - K);
+                    if (it != st.end()) 
+                        maxsf = max(maxsf, maxeh - *it);
+                    st.insert(maxeh);
+                }
+                if(maxsf<=K && maxsf>=max1)
+                {
+                    max1=maxsf;
+                }
+            }
+        }
+        return max1;
+    }
+};
