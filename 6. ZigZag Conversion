@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string convert(string s, int numRows) 
+    {
+        int n=s.size();
+        if(n==1 || numRows==1)
+        {
+            return s;
+        }
+        char t[numRows][n];
+        for(int i=0;i<numRows;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                t[i][j]=' ';
+            }
+        }
+        int k=0;
+        while(k<n)
+        {
+            int i=0;
+            while(i<numRows-1 && k<n)
+            {
+                t[i][k]=s[k];
+                i++;
+                k++;
+            }
+            i=numRows-1;
+            while(i>0 && k<n)
+            {
+                t[i][k]=s[k];
+                i--;
+                k++;
+            }
+        }
+        string res="";
+        for(int i=0;i<numRows;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(t[i][j]!=' ')
+                {
+                    res+=t[i][j];
+                }
+            }
+        }
+        
+        return res;
+    }
+};
