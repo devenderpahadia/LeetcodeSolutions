@@ -1,0 +1,272 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) 
+    {
+        int flag=1;
+        for(long long i = 0;i<9;i++)
+        {
+            for(long long j = 0;j<9;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag==0)
+            {
+               // cout<<"dev"<<endl;
+                break;
+            }
+        }
+        if(flag==1)
+        {
+            return true;
+        }
+        vector<char>temp;
+        for(long long i = 0;i<9;i++)
+        {
+            for(long long j = 0;j<9;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+            if(temp.size()==0)
+                continue;
+            sort(temp.begin(),temp.end());
+            for(long long i=0;i<temp.size()-1;i++)
+            {
+                if(temp[i]==temp[i+1])
+                {
+                    return false;
+                }
+            }
+            temp.clear();
+        }
+        temp.clear();
+        for(long long j = 0;j<9;j++)
+        {
+            for(long long i = 0;i<9;i++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+            if(temp.size()==0)
+                continue;        
+            sort(temp.begin(),temp.end());
+            for(long long i=0;i<temp.size()-1;i++)
+            {
+                if(temp[i]==temp[i+1])
+                {
+                    return false;
+                }
+            }
+            temp.clear();
+        }
+        temp.clear();
+        for(long long i = 0;i<3;i++)
+        {
+            for(long long j = 0;j<3;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 0;i<3;i++)
+        {
+            for(long long j = 3;j<6;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 0;i<3;i++)
+        {
+            for(long long j = 6;j<9;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 3;i<6;i++)
+        {
+            for(long long j = 0;j<3;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 3;i<6;i++)
+        {
+            for(long long j = 3;j<6;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 3;i<6;i++)
+        {
+            for(long long j = 6;j<9;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 6;i<9;i++)
+        {
+            for(long long j = 0;j<3;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 6;i<9;i++)
+        {
+            for(long long j = 3;j<6;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        for(long long i = 6;i<9;i++)
+        {
+            for(long long j = 6;j<9;j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    temp.push_back(board[i][j]);
+                }
+            }
+        }
+        if(temp.size()!=0)
+        {
+        sort(temp.begin(),temp.end());
+        for(long long i=0;i<temp.size()-1;i++)
+        {
+            if(temp[i]==temp[i+1])
+            {
+                return false;
+            }
+        }
+        }
+        temp.clear();
+        
+        return true;
+    }
+};
