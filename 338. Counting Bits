@@ -1,0 +1,25 @@
+class Solution {
+public:
+    
+    int solve(int n)
+    {
+        if(n==0 || n==1)
+            return n;
+        int ctr=0;
+        while(n)
+        {
+            ctr+=(n%2);
+            n/=2;
+        }
+        return ctr;
+    }
+    vector<int> countBits(int n) 
+    {
+        vector<int>res;
+        for(int i=0;i<=n;i++)
+        {
+            res.push_back(solve(i));
+        }
+        return res;
+    }
+};
