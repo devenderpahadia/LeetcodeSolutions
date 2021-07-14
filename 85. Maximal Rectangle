@@ -1,0 +1,114 @@
+class Solution {
+public:
+    int mah(vector<int>hist)
+    {
+        
+        int n=hist.size();
+        vector<int>nsl;
+        vector<int>nsr;
+        stack<pair<int,int>>st;
+        
+        for(int i=0;i<n;)
+        {
+            if(st.empty()==true)
+            {
+                nsl.push_back(-1);
+                st.push({hist[i],i});
+                i++;
+            }
+            else
+            {
+                while(!st.empty())
+                {
+                    if(st.top().first<hist[i])
+                    {
+                        nsl.push_back(st.top().second);
+                        st.push({hist[i],i});
+                        i++;
+                        break;
+                    }
+                    else
+                    {
+                        st.pop();
+                    }
+                }
+            }
+            
+        }
+        while(!st.empty())
+        {
+            st.pop();
+        }
+        
+        for(int i=n-1;i>=0;)
+        {
+            if(st.empty()==true)
+            {
+                nsr.push_back(n);
+                st.push({hist[i],i});
+                i--;
+            }
+            else
+            {
+                while(!st.empty())
+                {
+                    if(st.top().first<hist[i])
+                    {
+                        nsr.push_back(st.top().second);
+                        st.push({hist[i],i});
+                        i--;
+                        break;
+                    }
+                    else
+                    {
+                        st.pop();
+                    }
+                }
+            }         
+        }
+        reverse(nsr.begin(),nsr.end());
+        int mx=0;
+        for(int i=0;i<n;i++)
+        {
+            nsl[i]=abs(nsr[i]-nsl[i]-1);
+        }
+        for(int i=0;i<n;i++)
+        {
+            nsl[i]*=(hist[i]);
+        }
+        for(int i=0;i<n;i++)
+        {
+            mx=max(mx,nsl[i]);
+        }
+        return mx;
+    }
+    int maximalRectangle(vector<vector<char>>& matrix) 
+    {
+        if(matrix.size()==0)
+            return 0;
+        int mx=0;
+        vector<int>MAH ;
+        for(int i=0;i<matrix[0].size();i++)
+        {
+            MAH.push_back(matrix[0][i]-'0');
+        }
+        mx = mah(MAH);
+        
+        for(int i=1;i<matrix.size();i++)
+        {
+            for(int j=0;j<matrix[i].size();j++)
+            {
+                if(matrix[i][j]!='0')
+                {
+                    MAH[j]+=1;
+                }
+                else
+                {
+                    MAH[j]=0;
+                }
+            }
+            mx=max(mx,mah(MAH));
+        }
+        return mx;
+    }
+};
