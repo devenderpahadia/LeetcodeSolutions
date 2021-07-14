@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string customSortString(string order, string str) 
+    {    
+        int H[256]={0};
+        string res="";
+        for(int i=0;i<str.size();i++)
+        {
+            H[str[i]]++;
+        }
+        
+        for(int i=0;i<order.size();)
+        {
+            if(H[order[i]]>0)
+            {
+                res+=order[i];
+                H[order[i]]--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        
+        for(int i=0;i<str.size();)
+        {
+            if(H[str[i]]>0)
+            {
+                res+=str[i];
+                H[str[i]]--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return res;
+    }
+};
