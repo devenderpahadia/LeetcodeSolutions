@@ -1,0 +1,59 @@
+class Solution {
+public:
+    
+    void twosum(vector<int> A, int i,int j,int target,vector<vector<int>>&res)
+    {
+        int n=A.size();
+        int k=j+1;
+        int l=n-1;
+        
+        while(k<l)
+        {
+            if((A[k]+A[l])>target)
+            {
+                l--;
+            }
+            else if((A[k]+A[l])<target)
+            {
+                k++;
+            }
+            else
+            {
+                res.push_back({A[i],A[j],A[k],A[l]});
+                while(k<n-1 && A[k]==A[k+1])
+                    k++;
+                while(l>0 && A[l]==A[l-1])
+                    l--;
+                k++;
+                l--;
+            }
+        }
+        
+    }
+    vector<vector<int>> fourSum(vector<int>& nums, int target) 
+    {
+        vector<vector<int>>res;
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        if(n<4)
+            return res;
+        for(int i=0;i<n-3;i++)
+        {
+            if(i>0 && nums[i]==nums[i-1])
+            {
+                continue;
+            }
+            for(int j=i+1;j<n-2;j++)
+            {
+                if(j>i+1 && nums[j]==nums[j-1])
+                {
+                    continue;
+                }
+                int subtarget= target - (nums[i]+nums[j]);
+                twosum(nums,i,j,subtarget,res);
+                
+            }
+        }
+        return res;
+    }
+};
