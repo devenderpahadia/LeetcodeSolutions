@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    void solve(int i,int target,vector<int>nums,vector<vector<int>>&res,set<vector<int>>&st)
+    {
+        int n=nums.size();
+        int k=i+1;
+        int l=n-1;
+        while(k<l)
+        {
+            if(nums[k]+nums[l]>target)
+            {
+                l--;
+            }
+            else if(nums[k]+nums[l]<target)
+            {
+                k++;
+            }
+            else
+            {
+                if(st.find({nums[i],nums[k],nums[l]})==st.end())
+                {
+                    res.push_back({nums[i],nums[k],nums[l]});
+                    st.insert({nums[i],nums[k],nums[l]});
+                }
+                k++;
+                l--;
+            }
+        }
+    }
+    
+    vector<vector<int>> threeSum(vector<int>& nums) 
+    {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        set<vector<int>>st;
+        vector<vector<int>>res;
+        if(n==0)
+            return res;
+        for(int i=0;i<n-2;i++)
+        {
+            int target = 0-(nums[i]);
+            solve(i,target,nums,res,st);
+        }
+        
+        return res;
+    }
+};
