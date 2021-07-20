@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int>original;
+    vector<int>shuf;
+    Solution(vector<int>& nums) 
+    {
+        original = nums;
+        shuf = nums;
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    void swapAt(int i,int j)
+    {
+        int temp = shuf[i];
+        shuf[i]=shuf[j];
+        shuf[j]=temp;
+    }
+    vector<int> reset() 
+    {
+        shuf = original;
+        return shuf;
+    }
+
+    vector<int> shuffle() 
+    {
+        int n=shuf.size();
+        for(int i=0;i<shuf.size();i++)
+        {
+            swapAt(i,(rand()%(n-i))+i);
+        }
+        return shuf;
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(nums);
+ * vector<int> param_1 = obj->reset();
+ * vector<int> param_2 = obj->shuffle();
+ */
