@@ -1,0 +1,58 @@
+class Solution {
+public:
+    string pushDominoes(string domi) 
+    {
+        int n=domi.size();
+        vector<int>forces(n,0);
+        int force=0;
+        for(int i=0;i<n;i++)
+        {
+            if(domi[i]=='R')
+            {
+                force=n;
+            }
+            else if(domi[i]=='L')
+            {
+                force=0;
+            }
+            else
+            {
+                force = max(force-1,0);
+            }
+            forces[i]+=force;
+        }
+        force=0;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(domi[i]=='L')
+            {
+                force = n;
+            }
+            else if(domi[i]=='R')
+            {
+                force=0;
+            }
+            else
+            {
+                force = max(force-1,0);
+            }
+            forces[i]-=force;
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(forces[i]>0)
+            {
+                domi[i]='R';
+            }
+            else if(forces[i]<0)
+            {
+                domi[i]='L';
+            }
+            else
+            {
+                domi[i]='.';
+            }
+        }
+        return domi;
+    }
+};
