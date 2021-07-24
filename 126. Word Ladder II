@@ -1,0 +1,73 @@
+class Solution {
+public:
+    void dfs(string A,string B,unordered_map<string,unordered_set<string>>adj,vector<string>&path,vector<vector<string>>&res)
+    {
+        path.push_back(A);
+        if(A==B)
+        {
+            res.push_back(path);
+            path.pop_back();
+            return ;
+        }
+        for(auto it : adj[A])
+        {
+            dfs(it,B,adj,path,res);
+        }
+        path.pop_back();
+    }
+    vector<vector<string>> findLadders(string A, string B, vector<string>&C) 
+    {
+        unordered_map<string,unordered_set<string>>adj;
+        vector<vector<string>>res;
+        unordered_set<string>st;
+        int flag=0;
+        for(int i=0;i<C.size();i++)
+        {
+            if(B==C[i])
+            flag=1;
+            st.insert(C[i]);
+        }
+        if(flag==0)
+        return res;
+    
+        queue<string>q;
+        q.push(A);
+        //int depth=0;
+        unordered_map<string,int>vis;
+        vis[A]=0;
+        //vector<string>temp1;
+        while(!q.empty())
+        {
+            string curr = q.front();
+            q.pop();
+            string temp=curr;
+            for(int i=0;i<curr.size();i++)
+            {
+                for(char c = 'a';c<='z';c++)
+                {
+                    if(temp[i]==c)
+                        continue;
+                    temp[i]=c;
+                    if(st.count(temp)>0)
+                    {
+                        if(vis.count(temp)==0)
+                        {
+                            vis[temp]=vis[curr]+1;
+                            q.push(temp);
+                            adj[curr].insert(temp);
+                        }
+                        else if(vis[temp]==vis[curr]+1)
+                        {
+                            adj[curr].insert(temp);
+                        }
+                    }
+                }
+                temp[i]=curr[i];
+            }
+        }
+        vector<string>path;
+        dfs(A,B,adj,path,res);
+        sort(res.begin(),res.end());
+        return res;
+    }
+};
