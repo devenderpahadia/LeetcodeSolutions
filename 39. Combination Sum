@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void solve(int ind,int target,vector<int>A,vector<int>&op,vector<vector<int>>&res,set<vector<int>>&st)
+    {
+        if(ind==A.size())
+        {
+            if(target==0)
+            {
+                if(st.find(op)==st.end())
+                {
+                    res.push_back(op);
+                    st.insert(op);
+                }
+            }
+            return;
+        }
+        if(A[ind]<=target)
+        {
+            op.push_back(A[ind]);
+            solve(ind,target - A[ind],A,op,res,st);
+            op.pop_back();
+        }
+        solve(ind+1,target ,A,op,res,st);
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) 
+    {
+        sort(candidates.begin(),candidates.end());
+        set<vector<int>>st;
+        vector<int>op;
+        vector<vector<int>>res;
+        solve(0,target,candidates,op,res,st);
+        return res;
+    }
+};
