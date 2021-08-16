@@ -1,0 +1,41 @@
+class Solution {
+public:
+    unordered_map<string,int>mp;
+    int uniquePaths(int m, int n) 
+    {
+        if(m==1 || n==1)
+        {
+            return 1;
+        }
+        string str = to_string(m)+"_"+to_string(n);
+        if(mp.find(str)!=mp.end())
+        {
+            return mp[str];
+        }
+        
+        int left,right;
+        string str1 = to_string(m-1)+"_"+to_string(n);
+        string str2 = to_string(m)+"_"+to_string(n-1);
+        if(mp.find(str1)!=mp.end())
+        {
+            left = mp[str1];
+        }
+        else
+        {
+            left = uniquePaths(m-1,n);
+            mp[str1] =left;
+        }
+        
+        if(mp.find(str2)!=mp.end())
+        {
+            right = mp[str2];
+        }
+        else
+        {
+            right = uniquePaths(m,n-1);
+            mp[str2] = right;
+        }
+        
+        return left+right;
+    }
+};
