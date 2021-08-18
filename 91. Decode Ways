@@ -1,0 +1,53 @@
+class Solution {
+public:
+    unordered_map<int,int>mp;
+    int solve(string s,int n)
+    {
+        
+        if(n==0 || n==1)
+        {
+            return 1;
+        }
+        if(s[0]=='0')
+        {
+            return 0;
+        }
+        
+        int ctr=0;
+        
+        if(s[n-1]>'0')
+        {
+            if(mp.find(n-1)!=mp.end())
+            {
+                ctr = mp[n-1];
+            }
+            else
+            {
+                ctr = solve(s,n-1);
+                mp[n-1] = ctr;
+            }
+        }
+        
+        if(s[n-2]=='1' || s[n-2]=='2' && s[n-1]<'7')
+        {
+            if(mp.find(n-2)!=mp.end())
+            {
+                ctr+= mp[n-2];
+            }
+            else
+            {
+                ctr+= solve(s,n-2);
+                mp[n-2] = ctr;
+            }
+        }
+        return ctr;
+    }
+    
+    int numDecodings(string s) 
+    {
+        if(s.size()==0 || (s.size()==1 && s[0]=='0'))
+            return 0;
+        
+        return solve(s,s.size());
+    }
+};
