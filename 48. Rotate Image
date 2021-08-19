@@ -1,0 +1,31 @@
+void swap(int *a,int *b)
+{
+    int temp=*a;
+    *a= *b;
+    *b=temp;
+}
+class Solution {
+public:
+    
+    void rotate(vector<vector<int>>& a) 
+    {
+        int n=a.size();
+        for(int i=0;i<n;i++)
+	    {
+	        for(int j=0;j<n/2;j++)
+	        {
+	            swap(&a[j][i],&a[n-j-1][i]);
+	        }
+	    }
+	    
+	    
+	    for(int i=0;i<n;i++)
+	    {
+	        for(int j=0;j<n;j++)
+	        {
+                if(i<=j)
+	            swap(&a[i][j],&a[j][i]);
+	        }
+	    }
+    }
+};
