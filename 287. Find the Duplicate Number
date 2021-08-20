@@ -1,0 +1,59 @@
+//Solution1
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) 
+    {
+        unordered_map<int,int>mp;
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            if(mp.find(nums[i])==mp.end())
+            {
+                mp[nums[i]]++;
+            }
+            else
+            {
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+};
+
+//Alternate Solution 2
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) 
+    {
+        sort(nums.begin(),nums.end());
+        for(long long i=0;i<nums.size();i++)
+        {
+            if(nums[i]==nums[i+1])
+            {
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+};
+
+//Alternate Solution 3
+
+Efficient:
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) 
+    {
+        int H[100001]={0};
+        for(int i=0;i<nums.size();i++)
+        {
+            H[nums[i]]++;
+            if(H[nums[i]]>1)
+            {
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+};
