@@ -1,0 +1,97 @@
+//Bruteforce
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) 
+    {
+        ListNode *p=headA;
+        ListNode *q=headB;
+        
+        while(p!=NULL)
+        {
+            q=headB;
+            while(q!=NULL)
+            {
+                if(p==q)
+                {
+                    return p;
+                }
+                q=q->next;
+            }
+            p=p->next;
+        }
+        return NULL;
+    }
+};
+
+//Efficient Solution
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *A, ListNode *B) 
+    {
+         ListNode* p =A;
+        ListNode* q = B;
+
+        int ctr1 = 0;
+        int ctr2 = 0;
+
+        while(p)
+        {
+            ctr1++;
+            p=p->next;
+        }
+        while(q)
+        {
+            ctr2++;
+            q=q->next;
+        }
+        p=A;
+        q=B;
+
+        int i = 0;
+
+        if(ctr1>ctr2)
+        {
+            while(i++ < abs(ctr1-ctr2))
+            {
+                p=p->next;
+            }
+        }
+        else
+        {
+            while(i++ < abs(ctr1-ctr2))
+            {
+                q=q->next;
+            }
+        }
+
+        while(p && q)
+        {
+            if(p==q)
+            {
+                return p;
+            }
+            p=p->next;
+            q=q->next;
+        }
+        return p;
+    }
+};
+
