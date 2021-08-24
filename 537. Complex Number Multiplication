@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+class Solution {
+public:
+    string complexNumberMultiply(string num1, string num2) 
+    {
+        int a=0,b=0,c=0,d=0;
+        int i=0;
+        int s1=1;
+        if(num1[0]=='-')
+        {
+            i++;
+        }
+        for(;num1[i]!='+';i++)
+        {
+            a=a*10;
+            a+=(num1[i]-'0');
+        }
+        i++;
+        if(num1[0]=='-')
+        {
+            a=-a;
+        }
+        if(num1[i]=='-')
+        {
+            s1=0;
+            i++;
+        }
+        for(;num1[i]!='i';i++)
+        {
+            b=b*10;
+            b+=(num1[i]-'0');
+        }
+        if(s1==0)
+        {
+            b=-b;
+        }
+        i=0,s1=1;
+        if(num2[0]=='-')
+        {
+            i++;
+        }
+        for(;num2[i]!='+';i++)
+        {
+            c=c*10;
+            c+=(num2[i]-'0');
+        }
+        i++;
+        if(num2[0]=='-')
+        {
+            c=-c;
+        }
+        if(num2[i]=='-')
+        {
+            s1=0;
+            i++;
+        }
+        for(;num2[i]!='i';i++)
+        {
+            d=d*10;
+            d+=(num2[i]-'0');
+        }
+        if(s1==0)
+        {
+            d=-d;
+        }
+        
+        int res = 0;
+        
+        res+=(a*c);
+        res+=((-1)*b*d);
+        
+        int ans = 0;
+        
+        ans+=(a*d);
+        ans+=(b*c);
+        
+        string temp = to_string(res);
+        temp+=("+"+to_string(ans)+"i");
+        
+        return temp;
+        
+        
+    }
+};
