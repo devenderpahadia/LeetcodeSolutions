@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool isValidSerialization(string preorder) 
+    {
+        vector<string>str;
+        stringstream check(preorder);
+        string temp;
+        
+        while(getline(check,temp,','))
+        {
+            str.push_back(temp);
+        }
+        
+        stack<string>st;
+        
+        for(auto it : str)
+        {
+            if(st.empty() || it!="#")
+            {
+                st.push(it);
+            }
+            else
+            {
+                while(!st.empty() && st.top()=="#")
+                {
+                    st.pop();
+                    if(st.empty())
+                        return false;
+                    else
+                        st.pop();
+                }
+                st.push("#");
+            }
+        }
+        
+        if(st.size()==1 && st.top()=="#")
+            return true;
+        
+        return false;
+    }
+};
