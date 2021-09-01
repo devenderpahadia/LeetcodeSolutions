@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) 
+    {
+        int mx = 0;
+        int n = nums.size();
+        
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]!= -1)
+            {
+                int s = nums[i],ctr=0;
+                while(nums[s] != -1)
+                {
+                    int t = s;
+                    s=nums[s];
+                    ctr++;
+                    nums[t] = -1;
+                }
+                mx = max(mx,ctr);
+            }
+        }
+        return mx;
+        
+    }
+};
