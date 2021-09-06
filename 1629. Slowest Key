@@ -1,0 +1,39 @@
+class Solution {
+public:
+    char slowestKey(vector<int>& releaseTimes, string keysPressed) 
+    {
+        char res;
+        int m=releaseTimes[0];
+        unordered_map<char,int>mp;
+        mp[keysPressed[0]]=releaseTimes[0];
+        for(int i=1 ; i<releaseTimes.size() ; i++)
+        {
+            if(mp.find(keysPressed[i])!=mp.end())
+            {
+                if(mp[keysPressed[i]] < releaseTimes[i]-releaseTimes[i-1])
+                mp[keysPressed[i]] = releaseTimes[i]-releaseTimes[i-1];
+            }
+            else
+            {
+                mp[keysPressed[i]] = releaseTimes[i]-releaseTimes[i-1];
+            }
+        }
+        for(auto it=mp.begin();it!=mp.end();it++)
+        {
+            if(it->second > m)
+            {
+                m = it->second;
+                res = it->first;
+            }
+            else if(it->second == m)
+            {
+                if(it->first > res)
+                {
+                    m = it->second;
+                    res= it->first;
+                }
+            }
+        }
+        return res;
+    }
+};
