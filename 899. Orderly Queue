@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string orderlyQueue(string s, int k) 
+    {
+        if(k==1)
+        {
+            unordered_map<string,int>mp;
+            vector<string>res;
+            while(mp.find(s)==mp.end())
+            {
+                mp[s]++;
+                int x = 0;
+                s.push_back(s[x]);
+                s.erase(s.begin() + x);
+                res.push_back(s);
+            }
+            sort(res.begin(),res.end());]
+            return res[0];
+        }
+        else
+        {
+            sort(s.begin(),s.end());
+            return s;
+        }
+        
+    }
+};
