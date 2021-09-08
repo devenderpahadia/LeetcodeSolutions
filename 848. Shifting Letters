@@ -1,0 +1,9 @@
+class Solution {
+public:
+    string shiftingLetters(string S, vector<int>& sf) 
+    {
+        for (int i = S.length() - 1; i >= 0; i--) 
+            S[i] = (S[i] - 'a' + (sf[i] = i + 1 < S.length() ?  (sf[i] + sf[i + 1]) % 26 : sf[i])) % 26 + 'a';
+        return S;
+    }
+};
