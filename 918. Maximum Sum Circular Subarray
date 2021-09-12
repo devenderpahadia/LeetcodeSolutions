@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& nums) 
+    {
+        int n=nums.size();
+        int res = nums[0];
+        int curr = nums[0];
+        
+        for(int i=1;i<n;i++)
+        {
+            curr = nums[i] + max(curr,0);
+            res = max(res,curr);
+        }
+        
+        vector<int>right(n);
+        vector<int>maxright(n);
+        
+        right[n-1]=nums[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            right[i] = right[i+1] + nums[i];
+        }
+        
+        maxright[n-1] = nums[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            maxright[i] = max(maxright[i+1] ,right[i]);
+        }
+        
+        int sum = 0;
+        for(int i=0;i<n-2;i++)
+        {
+            sum+=nums[i];
+            res = max(res,sum+maxright[i+2]);
+        }
+        
+        return res;
+        
+        
+    }
+};
