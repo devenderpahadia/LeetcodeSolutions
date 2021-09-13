@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums)
+    {
+        int n=nums.size();
+        int res = nums[0];
+        int prod = nums[0];
+        int rpod = nums[n-1];
+        int rres = nums[n-1];
+        for(int i=1;i<n;i++)
+        {
+            if(prod==0) prod=1;
+            if(rpod==0) rpod=1;
+            
+            prod*=nums[i];
+            rpod*=nums[n-i-1];
+            
+            res = max(res,prod);
+            rres = max(rres,rpod);
+        }
+        return max(res,rres);
+    }
+};
