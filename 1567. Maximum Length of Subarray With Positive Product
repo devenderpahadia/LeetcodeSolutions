@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int getMaxLen(vector<int>& nums) {
+        int pos=-1,neg=-1,ans=0;
+        int pro=1;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]==0)
+            {
+                pos=i;
+                neg=-1;
+                pro=1;
+            }
+            else
+            {
+                pro*=(nums[i]<0?-1:1);
+                if(pro<0)
+                {
+                    if(neg!=-1)
+                    {
+                        ans=max(ans,i-neg);
+                    }
+                    else
+                    {
+                        neg=i;
+                    }
+                }
+                else ans=max(ans,i-pos);
+            }
+        }
+        return ans;
+    }
+};
