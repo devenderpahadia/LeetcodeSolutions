@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) 
+    {
+        unordered_map<char,int>mp;
+        for(int i=0;i<text.size();i++)
+        {
+            mp[text[i]]++;
+        }
+        int ctr=INT_MAX;
+        
+        if(mp.find('b')!=mp.end())
+        {
+            ctr = min(ctr,mp['b']);
+        }
+        else
+            return 0;
+        if(mp.find('a')!=mp.end())
+        {
+            ctr = min(ctr,mp['a']);
+        }
+        else
+            return 0;
+        if(mp.find('l')!=mp.end())
+        {
+            ctr = min(ctr,mp['l']/2);
+        }
+        else
+            return 0;
+        if(mp.find('o')!=mp.end())
+        {
+            ctr = min(ctr,mp['o']/2);
+        }
+        else
+            return 0;
+        if(mp.find('n')!=mp.end())
+        {
+            ctr = min(ctr,mp['n']);
+        }
+        else
+            return 0;
+        
+        return ctr;
+    }
+};
