@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string reverseOnlyLetters(string s) 
+    {
+        string t = s;
+        reverse(t.begin(),t.end());
+        for(int i=0;i<t.size();)
+        {
+            if(isalpha(t[i]))
+            {
+                i++;
+            }
+            else
+            {
+                t.erase(t.begin()+i);
+            }
+        }
+        int k=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(!isalpha(s[i]))
+            {
+                continue;
+            }
+            else
+            {
+                s[i]=t[k++];
+            }
+        }
+        return s;
+    }
+};
