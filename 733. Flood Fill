@@ -17,7 +17,7 @@ public:
             {
                 dfs(image,i+1,j,color,newColor);
             }
-            if(j+1<image.size())
+            if(j+1<image[0].size())
             {
                 dfs(image,i,j+1,color,newColor);
             }
