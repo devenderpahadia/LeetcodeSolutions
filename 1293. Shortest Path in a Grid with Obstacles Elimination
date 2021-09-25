@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int shortestPath(vector<vector<int>>& grid, int k) 
+    {
+        int m = grid.size();
+        int n = grid[0].size();
+        queue<vector<int>>q;
+        q.push({0,0,0,k});
+        vector<vector<int>>vis(m,vector<int>(n,-1));
+        while(!q.empty())
+        {
+            auto cell = q.front();
+            q.pop();
+            
+            int x = cell[0];
+            int y = cell[1];
+            
+            if(x==m-1 && y==n-1)
+            {
+                return cell[2];
+            }
+            
+            if(x<0 || y<0 || x>=m || y>=n)
+            {
+                continue;
+            }
+            
+            if(grid[x][y]==1)
+            {
+                if(cell[3]>0)
+                {
+                    cell[3]--;
+                }
+                else
+                    continue;
+            }
+            
+            if(vis[x][y]!=-1 && vis[x][y]>=cell[3])
+            {
+                continue;
+            }
+            vis[x][y] = cell[3];
+            
+            q.push({x+1,y,cell[2]+1,cell[3]});
+            q.push({x,y+1,cell[2]+1,cell[3]});
+            q.push({x-1,y,cell[2]+1,cell[3]});
+            q.push({x,y-1,cell[2]+1,cell[3]});
+        }
+        return -1;
+    }
+};
