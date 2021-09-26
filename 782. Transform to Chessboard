@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int movesToChessboard(vector<vector<int>>& board) 
+    {
+        int n=board.size();
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(board[0][0]^board[i][0]^board[0][j]^board[i][j]) return -1;
+            }
+        }
+        
+        int rows=0,cols=0,rowd=0,cold=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            rows+=board[0][i];
+            cols+=board[i][0];
+            
+            rowd+=(board[i][0]==(i%2));
+            cold+=(board[0][i]==(i%2));
+        }
+        
+        if(n/2 >rows || (n+1)/2 < rows) return -1;
+        if(n/2 >cols || (n+1)/2 < cols) return -1;
+        
+        if(n%2)
+        {
+            if(rowd%2) rowd = n-rowd;
+            if(cold%2) cold = n-cold;
+        }
+        else
+        {
+            rowd = min(n-rowd,rowd);
+            cold = min(n-cold,cold);
+        }
+        
+        return (rowd+cold)/2;
+        
+    }
+};
