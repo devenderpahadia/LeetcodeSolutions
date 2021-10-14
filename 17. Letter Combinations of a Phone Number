@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string>but = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void solve(string op,string digits,int k,vector<string>&res)
+    {
+        if(k>=digits.size())
+        {
+            res.push_back(op);
+            return;
+        }
+        
+        string letters = but[digits[k]-'0'];
+        for(int i=0;i<letters.size();i++)
+        {
+            solve(op+letters[i],digits,k+1,res);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits.size()==0)
+            return {};
+        vector<string>res;
+        solve("",digits,0,res);
+        return res;
+    }
+};
