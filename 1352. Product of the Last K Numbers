@@ -1,0 +1,30 @@
+class ProductOfNumbers {
+public:
+    vector<int>vec;
+    ProductOfNumbers() {
+        vec.push_back(1);
+    }
+    
+    void add(int num) {
+        
+        if(num)
+        {
+            vec.push_back(vec.back()*num);
+        }
+        else
+        {
+            vec.clear();
+            vec.push_back(1);
+        }
+    }
+    
+    int getProduct(int k) {
+        return k<vec.size()? vec.back()/vec[vec.size()-k-1]:0;
+    }
+};
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers* obj = new ProductOfNumbers();
+ * obj->add(num);
+ * int param_2 = obj->getProduct(k);
+ */
