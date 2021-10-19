@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        unordered_map<int,int>mp;
+        for(int i=0;i<arr.size();i++)
+        {
+            mp[arr[i]]++;
+        }
+        for(int i=0;i<arr.size();i++)
+        {
+            if(arr[i]!=0 && mp.find(2*arr[i])!=mp.end())
+            {
+                return true;
+            }
+            else if(arr[i]==0)
+            {
+                if(mp[0]>1)
+                {
+                    return true;
+                }
+                else
+                    continue;
+            }
+        }
+        return false;
+    }
+};
