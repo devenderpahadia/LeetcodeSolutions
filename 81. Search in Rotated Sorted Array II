@@ -1,0 +1,68 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) 
+    {
+        int n=nums.size();
+        int l=0;
+        int h=n-1;
+        while(l<=h)                                             
+        {
+            int mid=(l+h)/2;
+            if(nums[mid]==target ||nums[l]==target || nums[h]==target)
+               return true;
+            l++,h--;     
+        }
+        l=0;
+        h=n-1;
+        int k;
+        while(l<h)
+        {
+            int mid = l+(h-l)/2;
+            if(nums[mid]<=nums[h])
+            {
+                h=mid;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        k=l;
+        l=0;
+        h=k-1;
+        cout<<k<<endl;
+        while(l<=h)
+        {
+            int mid = l+(h-l)/2;
+            if(nums[mid]==target)
+                return true;
+            else if(target<nums[mid])
+            {
+                h=mid-1;
+            }
+            else 
+            {
+                l=mid+1;
+            }
+        }
+        l=k;
+        h=n-1;
+        
+        while(l<=h)
+        {
+            int mid = l+(h-l)/2;
+            if(nums[mid]==target)
+                return true;
+            else if(target<nums[mid])
+            {
+                h=mid-1;
+            }
+            else 
+            {
+                l=mid+1;
+            }
+        }
+        
+        return false;
+    }
+};
