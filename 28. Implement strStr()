@@ -1,0 +1,56 @@
+//JavaScript Solution
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    return haystack.indexOf(needle);
+};
+
+
+//C++ Solution
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) 
+    {
+        int h = haystack.size();
+        int n = needle.size();
+        
+        if(n==0)
+        {
+            return 0;
+        }
+        if(h==0)
+        {
+            return -1;
+        }
+        string str=needle;
+        int flag=1;
+        int i,j,k;
+        for(i=0;i<h;i++)
+        {
+            if(haystack[i]==str[0])
+            {
+                flag=1;
+                k=i+1;
+                for(int j=1;j<n;j++,k++)
+                {
+                    if(haystack[k]!=str[j])
+                    {
+                        flag=0;
+                        break;
+                    }
+                }
+                if(flag==1)
+                {
+                    return i;
+                }
+                
+            }
+        }
+        return -1;
+    }
+};
