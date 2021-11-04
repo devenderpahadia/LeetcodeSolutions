@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) 
+    {
+        set<int>st;
+        for(int i=0;i<nums.size();i++)
+        {
+            st.insert(nums[i]);
+        }
+        priority_queue<int,vector<int>,greater<int>>maxh;
+        for(auto it : st)
+        {
+            maxh.push(it);
+            if(maxh.size()>3)
+                maxh.pop();
+        }
+        if(maxh.size()<3)
+        {
+            while(maxh.size()>1)
+                maxh.pop();
+        }
+        return maxh.top();
+    }
+};
