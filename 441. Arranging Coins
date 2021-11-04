@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        int ctr=1;
+        while(n>0)
+        {
+            int x = ctr;
+            n=n-x;
+            if(n<0)
+                return ctr-1;
+            ctr++;
+        }
+        return ctr-1;
+    }
+};
