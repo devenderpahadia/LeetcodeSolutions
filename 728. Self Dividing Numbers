@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool solve(int n)
+    {
+        int temp = n;
+        while(temp)
+        {
+            int x=temp%10;
+            if(x==0 || n%(x) != 0)
+                return false;
+            temp/=10;
+        }
+        return true;
+    }
+    vector<int> selfDividingNumbers(int left, int right) {
+        vector<int>res;
+        for(int i=left;i<=right;i++)
+        {
+            if(solve(i))
+                res.push_back(i);
+        }
+        return res;
+    }
+};
