@@ -1,20 +1,21 @@
 class MyHashSet {
 public:
-    unordered_set<int>st;
+    vector<int>H;
     MyHashSet() {
-        
+        vector<int>vec(1000001,0);
+        H=vec;
     }
     
     void add(int key) {
-        st.insert(key);
+        H[key]=1;
     }
     
     void remove(int key) {
-        st.erase(key);
+        H[key]=0;
     }
     
     bool contains(int key) {
-        return st.find(key)!=st.end();
+        return H[key];
     }
 };
 
