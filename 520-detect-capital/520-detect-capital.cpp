@@ -1,0 +1,45 @@
+class Solution {
+public:
+    
+    bool solve1(string word)
+    {
+        for(int i=0;i<word.size();i++)
+        {
+            if(!(word[i]>='A' && word[i]<='Z'))
+                return false;
+        }
+        return true;
+    }
+    
+    bool solve2(string word)
+    {
+        for(int i=0;i<word.size();i++)
+        {
+            if((word[i]>='A' && word[i]<='Z'))
+                return false;
+        }
+        return true;
+    }
+    
+    bool solve3(string word)
+    {
+        if(word[0]>='A' && word[0]<='Z')
+        {
+            for(int i=1;i<word.size();i++)
+            {
+                if((word[i]>='A' && word[i]<='Z'))
+                    return false;
+            }
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    bool detectCapitalUse(string word) {
+        if(solve1(word) || solve2(word) || solve3(word))
+            return true;
+        
+        return false;
+    }
+};
