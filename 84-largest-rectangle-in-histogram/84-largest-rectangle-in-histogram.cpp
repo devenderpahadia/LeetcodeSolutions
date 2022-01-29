@@ -1,0 +1,87 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) 
+    {
+        int n=heights.size();
+        if(n==1)
+        return heights[0];
+
+        vector<int>nsl;
+        vector<int>nsr;
+
+        stack<pair<int,int>>st;
+
+        for(int i=0;i<n;)
+        {
+            if(st.empty()==true)
+            {
+                nsl.push_back(-1);
+                st.push({heights[i],i});
+                i++;
+            }
+            else
+            {
+                while(!st.empty())
+                {
+                    if(st.top().first<heights[i])
+                    {
+                        nsl.push_back(st.top().second);
+                        st.push({heights[i],i});
+                        i++;
+                        break;
+                    }
+                    else
+                    {
+                        st.pop();
+                    }
+                }
+            }
+        }
+    
+        while(!st.empty())
+        {
+            st.pop();
+        }
+        for(int i=n-1;i>=0;)
+        {
+            if(st.empty()==true)
+            {
+                nsr.push_back(n);
+                st.push({heights[i],i});
+                i--;
+            }
+            else
+            {
+                while(!st.empty())
+                {
+                    if(st.top().first<heights[i])
+                    {
+                        nsr.push_back(st.top().second);
+                        st.push({heights[i],i});
+                        i--;
+                        break;
+                    }
+                    else
+                    {
+                        st.pop();
+                    }
+                }
+            }
+        }
+        reverse(nsr.begin(),nsr.end());
+        for(int i=0;i<nsl.size();i++)
+        {
+            nsl[i] = abs(nsr[i]-nsl[i]-1);
+        }
+        for(int i=0;i<nsl.size();i++)
+        {   
+            nsl[i]=heights[i]*nsl[i];
+        }
+        int mx=-1;
+        for(int i=0;i<nsl.size();i++)
+        {
+            mx=max(mx,nsl[i]);
+        }
+        return mx;
+    }
+};
