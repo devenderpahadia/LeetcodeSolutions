@@ -12,10 +12,16 @@ public:
         while(sum<k)
         {
             // int idx = 0;
-            for(int idx = 0; idx < 25; idx++){
-                sum++;
-                res[i]++;
-                if(sum == k) break;
+            if(k-sum>=26)
+            {
+                sum--;
+                sum+=26;
+                res[i]='z';
+            }
+            else
+            {
+                res[i] = ('a'+(k-sum));
+                sum+=(k-sum);
             }
             i--;
         }
