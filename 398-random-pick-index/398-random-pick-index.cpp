@@ -9,14 +9,8 @@ public:
     }
     
     int pick(int target) {
-        for(auto it : mp[target])
-        {
-            int x = it;
-            mp[target].erase(mp[target].begin()+0);
-            mp[target].push_back(x);
-            return x;
-        }
-        return -1;
+        int x = mp[target].size();
+        return mp[target][rand()%x];
     }
 };
 
