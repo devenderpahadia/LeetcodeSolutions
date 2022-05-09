@@ -5,15 +5,13 @@ public:
         int n=prices.size();
         if(n==0)
             return 0;
-        int cost = 0;
         int mx = 0;
-        int mn = prices[0];
-        
-        for(int i=0;i<n;i++)
+        int mn = INT_MAX;
+        for(auto it : prices)
         {
-            mn = min(mn,prices[i]);
-            cost = prices[i] - mn;
-            mx = max(mx,cost);
+            mn = min(mn,it);
+            if(mn<it)
+            mx = max(mx,it-mn);
         }
         return mx;
     }
