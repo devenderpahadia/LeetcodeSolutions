@@ -11,7 +11,6 @@ public:
         {
             if(res[j][1]>=nums[i][0])
             {
-                res[j][0] = min(res[j][0],nums[i][0]);
                 res[j][1] = max(res[j][1],nums[i][1]);
             }
             else
