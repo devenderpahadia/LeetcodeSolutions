@@ -1,32 +1,21 @@
 class Solution {
 public:
-    
-    void solve(int d,int n,vector<int>H,int& ctr)
-    {
-        if(d<=n)
-            ctr++;
-        
-        if(d>=n)
-            return;
-        for(int j=0;j<=9;j++)
+    int countNumbersWithUniqueDigits(int n) {
+        int arr[n+1];
+        arr[0] = 1;
+        for(int i=1;i<=n;i++)
         {
-            if(H[j]!=1)
+            int count = 9;
+            int ctr = i-1;
+            int x = 9;
+            while(ctr--)
             {
-                H[j]=1;
-                solve(d+1,n,H,ctr);
-                H[j]=0;
+                count*=x;
+                x--;
             }
+            count+=arr[i-1];
+            arr[i] = count ;
         }
-    }
-    
-    int countNumbersWithUniqueDigits(int n) { 
-        int ctr=1;
-        for(int i=1;i<=9;i++)
-        {
-            vector<int>H(10,0);
-            H[i]=1;
-            solve(1,n,H,ctr);
-        }
-        return ctr;
+        return arr[n];
     }
 };
