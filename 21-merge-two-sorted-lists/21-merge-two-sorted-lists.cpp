@@ -10,68 +10,25 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) 
-    {
-        if(l1 == NULL && l2==NULL)
-        {
-            return l1;
-        }
-        if(l1 == NULL && l2!=NULL)
-        {
-            return l2;
-        }
-        if(l1 != NULL && l2==NULL)
-        {
-            return l1;
-        }
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* l1 = list1;
+        ListNode* l2 = list2;
+        if(l2==NULL) return l1;
+        if(l1==NULL) return l2;
+        if(l1->val > l2->val) swap(l1,l2);
+        ListNode* res = l1;
         
-        ListNode *imp = NULL;
-        ListNode *last = NULL;
-        
-        if(l1->val < l2->val)
+        while(l1 && l2)
         {
-            imp=last=l1;
-            l1=l1->next;
-            last->next=NULL;
-            //cout<<last->val<<" ";
-        }
-        else
-        {
-            imp=last=l2;
-            l2=l2->next;
-            last->next=NULL;
-            //cout<<last->val<<" ";
-        }
-        
-        while(l1!=NULL && l2!=NULL)
-        {
-            if(l1->val < l2->val)
+            ListNode* temp = NULL;
+            while(l1 && l1->val<=l2->val)
             {
-                last->next = l1;
-                last=l1;
+                temp = l1;
                 l1=l1->next;
-                last->next=NULL;
-                //cout<<last->val<<" ";
             }
-            else
-            {
-                last->next = l2;
-                last=l2;
-                l2 = l2->next;
-                last->next=NULL;
-                //cout<<last->val<<" ";
-            }
+            temp->next = l2;
+            swap(l1,l2);
         }
-        if(l1!=NULL)
-        {
-            last->next = l1;
-        }
-        if(l2!=NULL)
-        {
-            last->next = l2;
-        }
-        
-        return imp;
-        
+        return res;
     }
 };
