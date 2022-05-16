@@ -1,34 +1,28 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& num) {
-        vector<vector<int> > res;
-        sort(num.begin(), num.end());
-
-    for (int i = 0; i < num.size(); i++) {
-        
-        int target = -num[i];
-        int front = i + 1;
-        int back = num.size() - 1;
-
-        while (front < back) {
-            int sum = num[front] + num[back];
-            if (sum < target)
-                front++;
-            else if (sum > target)
-                back--;
-            else {
-                vector<int> triplet = {num[i], num[front], num[back]};
-                res.push_back(triplet);
-
-                while (front < back && num[front] == triplet[1]) front++;
-                while (front < back && num[back] == triplet[2]) back--;
-            } 
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>>res;
+        sort(nums.begin(),nums.end());
+        int n = nums.size();
+        if(n<3)
+            return res;
+        for(int i=0;i<nums.size()-2;i++){
+            if(i>0 && nums[i-1]==nums[i]) continue;
+            int sum = 0-nums[i];
+            int l = i+1;
+            int h = n-1;
+            while(l<h){
+                if(nums[l]+nums[h]<sum) l++;
+                else if(nums[l]+nums[h]>sum) h--;
+                else{
+                    int p = nums[l];
+                    int q = nums[h];
+                    res.push_back({nums[i],p,q});
+                    while(l<h && nums[l]==p) l++;
+                    while(l<h && nums[h]==q) h--;
+                }
+            }
         }
-        while (i + 1 < num.size() && num[i + 1] == num[i]) 
-            i++;
-
-    }
-    
-    return res;
+        return res;
     }
 };
