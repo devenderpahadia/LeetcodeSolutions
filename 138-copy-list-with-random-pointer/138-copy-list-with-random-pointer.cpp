@@ -13,37 +13,39 @@ public:
     }
 };
 */
-
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if(head==NULL)
-            return head;
-        Node* res = new Node(head->val);
-        Node* p = res;
-        Node* q = head;
-        unordered_map<Node*,Node*>mp;
-        while(q)
+        Node* item=head,*front=head;
+        
+        while(item)
         {
-            Node* t = new Node(q->val);
-            mp[q] = t;
-            p->next = t;
-            p=t;
-            q=q->next;
+            front = item->next;
+            Node* t = new Node(item->val);
+            item->next = t;
+            t->next = front;
+            item = front;
+        }
+        item = head;
+        while(item)
+        {
+            if(item->random)
+            item->next->random = item->random->next;
+            item=item->next->next;
         }
         
-        res = res->next;
+        item = head;
+        Node*res = new Node(0);
+        Node* t = res;
         
-        
-        Node* ans = res;
-        p=res;
-        q=head;
-        while(p)
+        while(item)
         {
-            p->random = mp[q->random];
-            q=q->next;
-            p=p->next;
+            front = item->next->next;
+            t->next = item->next;
+            item->next = front;
+            t = t->next;
+            item = front;
         }
-        return ans;
+        return res->next;
     }
 };
