@@ -6,27 +6,21 @@ using namespace std;
 class Solution
 {
 public:
-    void solve(vector<int>ip,int sum,vector<int>&res)
-    {
-        if(ip.size()==0)
-        {
-            res.push_back(sum);
-            return;
-        }
-        int sum1 = sum;
-        int sum2 = sum;
-        sum2+=ip[0];
-        ip.erase(ip.begin()+0);
-        solve(ip,sum1,res);
-        solve(ip,sum2,res);
+    void solve(int ind, vector < int > & arr, vector < int > & ans, int sum) {
+      if (ind == arr.size()) {
+        ans.push_back(sum);
+        return;
+      }
+      //element is picked
+      solve(ind + 1, arr,ans, sum + arr[ind]);
+      //element is not picked
+      solve(ind + 1, arr,ans, sum);
     }
-    vector<int> subsetSums(vector<int> arr, int N)
-    {
-        // Write Your Code here
-        vector<int>res;
-        solve(arr,0,res);
-        return res;
-    }
+  vector < int > subsetSums(vector < int > arr, int n) {
+    vector < int > res;
+    solve(0, arr, res, 0);
+    return res;
+  }
 };
 
 // { Driver Code Starts.
