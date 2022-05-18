@@ -8,11 +8,10 @@ public:
         }
         for(int j=i;j<ip.size();j++){
             if(i!=j && ip[j-1]==ip[j]) continue;
-            if(ip[j]<=target){
-                op.push_back(ip[j]);
-                solve(j+1,target-ip[j],ip,op,res);
-                op.pop_back();
-            }
+            if(ip[j]>target) break;
+            op.push_back(ip[j]);
+            solve(j+1,target-ip[j],ip,op,res);
+            op.pop_back();
         }
     }
     
