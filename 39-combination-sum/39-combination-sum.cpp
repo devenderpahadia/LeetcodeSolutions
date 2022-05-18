@@ -1,30 +1,27 @@
 class Solution {
-public:
-    
-    void solve(vector<int>&ip, vector<int>op, int i,int sum,int t,vector<vector<int>>&res)
-    {
-        if(sum>t)
-        {
-            return;
+  public:
+    void findCombination(int ind, int target, vector < int > & arr, vector < vector < int >> & ans, vector < int > & ds) {
+      if (ind == arr.size()) {
+        if (target == 0) {
+          ans.push_back(ds);
         }
-        if(sum==t)
-        {
-            res.push_back(op);
-            return;
-        }
-        for(int j=i;j<ip.size();j++)
-        {
-            op.push_back(ip[j]);
-            solve(ip,op,j,sum+ip[j],t,res);
-            op.pop_back();
-        }
-        
+        return;
+      }
+      // pick up the element 
+      if (arr[ind] <= target) {
+        ds.push_back(arr[ind]);
+        findCombination(ind, target - arr[ind], arr, ans, ds);
+        ds.pop_back();
+      }
+
+      findCombination(ind + 1, target, arr, ans, ds);
+
     }
-    
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>>res;
-        vector<int>op;
-        solve(candidates,op,0,0,target,res);
-        return res;
+  public:
+    vector < vector < int >> combinationSum(vector < int > & candidates, int target) {
+      vector < vector < int >> ans;
+      vector < int > ds;
+      findCombination(0, target, candidates, ans, ds);
+      return ans;
     }
 };
