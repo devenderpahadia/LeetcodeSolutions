@@ -1,34 +1,20 @@
 class Solution {
 public:
-    void solve(int k,vector<int>nums,vector<int>temp,set<vector<int>>&ans)
-    {
-        if(temp.size()==nums.size())
-        {
-            ans.insert(temp);
-            return;
-        }
-        for(int i=0;i<nums.size();i++)
-        {
-            auto it = find(temp.begin(),temp.end(),nums[i]);
-            if(it!=temp.end())
-            continue;
-            temp.push_back(nums[i]);
-            solve(i,nums,temp,ans);
-            temp.pop_back();
-        }
-        return;
-    }
-    vector<vector<int>> permute(vector<int>& nums) 
-    {
+    void solve(int idx,vector<int> &s,vector<vector<int>>&res){
+	if(idx==s.size()){
+		res.push_back(s);
+		return;
+	}
+	for(int i=idx;i<s.size();i++){
+		swap(s[idx],s[i]);
+		solve(idx+1,s,res);
+		swap(s[idx],s[i]);
+	}
+}
+    
+    vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>>res;
-        set<vector<int>>ans;
-        vector<int>temp;
-        int i=0;
-        solve(i,nums,temp,ans);
-        for(auto x : ans)
-        {
-            res.push_back(x);
-        }
-        return res;
+	    solve(0,nums,res);
+	    return res;
     }
 };
