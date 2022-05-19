@@ -16,8 +16,8 @@ class Solution{
             res.push_back(str);
             return;
         }
-        if(i<0 || j<0 || i>=n || j>=n || m[i][j]==0 || m[i][j]==-1) return;
-        m[i][j] = -1;
+        if(i<0 || j<0 || i>=n || j>=n || m[i][j]==0) return;
+        m[i][j] = 0;
         solve(i+1,j,str+'D',m,res,n);
         solve(i-1,j,str+'U',m,res,n);
         solve(i,j+1,str+'R',m,res,n);
