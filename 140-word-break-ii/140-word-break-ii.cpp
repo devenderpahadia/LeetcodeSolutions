@@ -23,13 +23,7 @@ public:
             st.insert(it);
         }
         vector<string>res;
-        for(int i=0;i<s.size();i++){
-            string temp = s.substr(0,i+1);
-            if(st.find(temp)!=st.end()){
-                temp+=' ';
-                solve(i+1,temp,s,res,st);
-            }
-        }
+        solve(0,"",s,res,st);
         return res;
     }
 };
