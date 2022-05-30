@@ -19,7 +19,7 @@ public:
         while(!q.empty())
         {
             int sz=q.size();
-            bool flag=false;
+            // bool flag=false;
             while(sz--)
             {
                 pair<int,int> temp;
@@ -33,7 +33,7 @@ public:
                     {
                         q.push({x-1,y});
                         grid[x-1][y]=2;
-                        flag=true;
+                        // flag=true;
                     }
                 }
                 if(y>0)
@@ -42,7 +42,7 @@ public:
                     {
                         q.push({x,y-1});
                         grid[x][y-1]=2;
-                        flag=true;
+                        // flag=true;
                     }
                 }
                 if(x<grid.size()-1)
@@ -51,7 +51,7 @@ public:
                     {
                         q.push({x+1,y});
                         grid[x+1][y]=2;
-                        flag=true;
+                        // flag=true;
                     }
                 }
                 if(y<grid[0].size()-1)
@@ -60,11 +60,11 @@ public:
                     {
                         q.push({x,y+1});
                         grid[x][y+1]=2;
-                        flag=true;
+                        // flag=true;
                     }
                 }
             }
-            if(flag)
+            // if(flag)
                 time++;
         }
         for(int i=0;i<grid.size();i++)
@@ -77,6 +77,6 @@ public:
                 }
             }
         }
-        return time;
+        return time==0 ? 0 :time-1;
     }
 };
