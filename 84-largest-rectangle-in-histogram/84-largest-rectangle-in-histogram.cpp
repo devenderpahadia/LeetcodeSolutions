@@ -1,86 +1,29 @@
 class Solution {
 public:
-    int largestRectangleArea(vector<int>& heights) 
-    {
-        int n=heights.size();
-        if(n==1)
-        return heights[0];
-
-        vector<int>nsl;
-        vector<int>nsr;
-
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
         stack<pair<int,int>>st;
-
-        for(int i=0;i<n;)
-        {
-            if(st.empty()==true)
-            {
-                nsl.push_back(-1);
-                st.push({heights[i],i});
-                i++;
-            }
-            else
-            {
-                while(!st.empty())
-                {
-                    if(st.top().first<heights[i])
-                    {
-                        nsl.push_back(st.top().second);
-                        st.push({heights[i],i});
-                        i++;
-                        break;
-                    }
-                    else
-                    {
-                        st.pop();
-                    }
-                }
-            }
+        
+        vector<int>nsl(n,0);
+        vector<int>nsr(n,0);
+        for(int i=0;i<n;i++){
+            while(st.size() && st.top().first>=heights[i]) st.pop();
+            if(st.size()) nsl[i] = st.top().second+1;
+            else nsl[i] = 0;
+            
+            st.push({heights[i],i});
         }
-    
-        while(!st.empty())
-        {
-            st.pop();
+        while(!st.empty()) st.pop();
+        for(int i=n-1;i>=0;i--){
+            while(st.size() && st.top().first>=heights[i]) st.pop();
+            if(st.size()) nsr[i] = st.top().second-1;
+            else nsr[i] = n-1;
+            
+            st.push({heights[i],i});
         }
-        for(int i=n-1;i>=0;)
-        {
-            if(st.empty()==true)
-            {
-                nsr.push_back(n);
-                st.push({heights[i],i});
-                i--;
-            }
-            else
-            {
-                while(!st.empty())
-                {
-                    if(st.top().first<heights[i])
-                    {
-                        nsr.push_back(st.top().second);
-                        st.push({heights[i],i});
-                        i--;
-                        break;
-                    }
-                    else
-                    {
-                        st.pop();
-                    }
-                }
-            }
-        }
-        reverse(nsr.begin(),nsr.end());
-        for(int i=0;i<nsl.size();i++)
-        {
-            nsl[i] = abs(nsr[i]-nsl[i]-1);
-        }
-        for(int i=0;i<nsl.size();i++)
-        {   
-            nsl[i]=heights[i]*nsl[i];
-        }
-        int mx=-1;
-        for(int i=0;i<nsl.size();i++)
-        {
-            mx=max(mx,nsl[i]);
+        int mx = -1;
+        for(int i=0;i<n;i++){
+            mx = max(mx, (nsr[i]-nsl[i]+1)*heights[i]);
         }
         return mx;
     }
