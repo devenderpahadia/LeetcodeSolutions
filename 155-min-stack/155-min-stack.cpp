@@ -1,47 +1,31 @@
+#include<bits/stdc++.h>
 class MinStack {
 public:
-    stack<int>st;
-    stack<int>sst;
-    MinStack() 
-    {
-        st.push(0);
-        st.pop();
+    stack<pair<int,int>>st;
+    MinStack() {
+        
     }
     
     void push(int val) {
-        st.push(val);
-        if(sst.empty()==false)
-        {
-            if(st.top()<=sst.top())
-            {
-                sst.push(st.top());
-            }
+        if(st.size()==0){
+            st.push({val,val});
         }
-        else
-        {
-            sst.push(val);
+        else{
+            st.push({val,min(val,st.top().second)});
         }
     }
     
-    void pop() 
-    {
-        if(sst.empty()==false && sst.top()==st.top())
-        {
-            st.pop();
-            sst.pop();
-        }
-        else
-        {
-            st.pop();
-        }
+    void pop() {
+        st.pop();
     }
     
     int top() {
-        return st.top();
+        return st.top().first;
+        
     }
     
     int getMin() {
-        return sst.top();
+        return st.top().second;
     }
 };
 
