@@ -17,23 +17,23 @@ public:
         }
         return true;
     }
-    void solve(int j,int n,vector<string>vec,vector<vector<string>>&res){
+    void solve(int j,int n,vector<string>vec,int&ans){
         if(j==n) {
-            res.push_back(vec);
+            ans++;
             return;
         }
         for(int i=0;i<n;i++){
             if(check(i,j,vec)){
                 vec[i][j] = 'Q';
-                solve(j+1,n,vec,res);
+                solve(j+1,n,vec,ans);
                 vec[i][j] = '.';
             }
         }
     }
     int totalNQueens(int n) {
-        vector<vector<string>>res;
+        int ans = 0;
         vector<string>vec(n,string(n,'.'));
-        solve(0,n,vec,res);
-        return res.size();
+        solve(0,n,vec,ans);
+        return ans;
     }
 };
