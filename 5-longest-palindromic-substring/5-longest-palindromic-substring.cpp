@@ -1,42 +1,27 @@
 class Solution {
 public:
-    string longest = "";
-
-    void findPalindrome(int start, int end, string s){
-        while(start>=0 && end<s.length() && s[start]==s[end]){
-            start--;
-            end++;
+    int solve(string s,int i,int j){
+        while(i>=0 && j<s.size() && s[i]==s[j]){
+            i--;
+            j++;
         }
-        start++;
-        end--;
-        if(start<=end){
-            string temp = s.substr(start, end-start+1);
-            if(temp.length()>longest.length()){
-                longest = temp;
-            }
-        }
+        return j-i-1;
     }
-
+    
     string longestPalindrome(string s) {
-        if(s.length()==1){
-            return s;
-        }
-        else if(s[0]!=s[1]&&s.length()==2){
-            string temp(1, s[0]);
-            return temp;
-        }
-        for(int i=0; i<s.length(); i++){
-            if(s[i]==s[i+1]&&i+1<s.length()){
-                findPalindrome(i,i+1,s);
-            }
-            if(i+2<s.length()&&s[i]==s[i+2]){
-                findPalindrome(i,i+2,s);
+        if(s.size()<1) return "";
+        int start = 0;
+        int end = 0;
+        for(int i=0;i<s.size();i++){
+            int len1 = solve(s,i,i+1); //even paildrome
+            int len2 = solve(s,i,i); //odd palindrome
+            int len = max(len1,len2);
+            if(end-start< len )
+            {
+                start = i - (len-1)/2;
+                end = i + len/2;
             }
         }
-        if(longest.compare("")==0){
-            string temp(1, s[0]);
-            return temp;
-        }
-        return longest;
+        return s.substr(start,end-start+1);
     }
 };
