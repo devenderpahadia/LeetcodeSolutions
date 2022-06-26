@@ -1,38 +1,34 @@
 class Solution {
 public:
-    bool solve(int i,vector<int>adj[],vector<int>&vis,vector<int>&res)
-    {
-        vis[i]=1;
-        for(auto it : adj[i])
-        {
-            if(vis[it]==1) return true;
-            else if(vis[it]==0)
-            {
-                if(solve(it,adj,vis,res)) return true;
+    
+    bool solve(int node,vector<int>adj[],vector<int>&vis){
+        for(auto it : adj[node]){
+            if(vis[it]==0){
+                vis[it]=1;
+                if(solve(it,adj,vis)) return 1;
+            }
+            else if(vis[it]==1){
+                return 1;
             }
         }
-        vis[i]=2;
-        res.push_back(i);
-        return false;
+        vis[node]=2;
+        return 0;
     }
     
     bool canFinish(int numCourses, vector<vector<int>>& pre) {
+        
+        
         vector<int>adj[numCourses];
-        for(int i=0;i<pre.size();i++)
-        {
-            int u = pre[i][0];
-            int v = pre[i][1];
-            adj[u].push_back(v);
+        for(auto it : pre){
+            adj[it[0]].push_back(it[1]);
         }
-        vector<int>vis(numCourses,0);
-        vector<int>res;
-        for(int i=0;i<numCourses;i++)
-        {
-            if(vis[i]==0)
-            {
-                if(solve(i,adj,vis,res)) return false;
+        for(int i=0;i<numCourses;i++){
+            vector<int>vis(numCourses);
+            if(vis[i]==0){
+                vis[i]=1;
+                if(solve(i,adj,vis)) return 0;
             }
         }
-        return true;
+        return 1;
     }
 };
