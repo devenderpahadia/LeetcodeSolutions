@@ -12,7 +12,7 @@ class Solution {
     unordered_map<int,bool>mp;
     
     bool solve(int i,int A[],int N){
-        if(i==N) return true;
+        if(i>=N-1) return true;
         
         if(A[i]==0) return false;
         
@@ -25,21 +25,7 @@ class Solution {
     
     int canReach(int A[], int N) {
         // code here
-         int maxreach=A[0];
-       int prevmaxreach=A[0];
-       for(int i=1;i<N;i++)
-       {
-           if(maxreach<i)
-           {
-               return 0;
-           }
-           maxreach=max(maxreach,A[i]+i);
-           if(i==prevmaxreach)
-           {
-               prevmaxreach=maxreach;
-           }
-       }
-       return 1;
+        return solve(0,A,N);
     }
 };
 
