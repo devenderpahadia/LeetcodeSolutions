@@ -1,9 +1,8 @@
 class Solution {
 public:
-    string shortestCommonSupersequence(string a, string b) {
-        int n=a.length();
-        int m=b.length();
-        int t[n+1][m+1];
+    int t[1001][1001];
+    void lcs (string a, string b, int n, int m)
+    {
         for(int i=0;i<n+1;i++)
             t[i][0]=0;
         for(int i=0;i<m+1;i++)
@@ -18,10 +17,13 @@ public:
                     t[i][j]=max(t[i-1][j],t[i][j-1]);
             }
         }
-        int i=n;
-        int j=m;
+    }
+    string shortestCommonSupersequence(string a, string b) {
+        int i=a.length();
+        int j=b.length();
+        lcs(a,b,i,j);
         string res="";
-        while(i>0 && j>0)
+        while(i>0&&j>0)
         {
             if(a[i-1]==b[j-1])
             {
@@ -29,12 +31,13 @@ public:
                 i--;
                 j--;
             }
-            else if(t[i][j-1]>t[i-1][j])
+            else
+                if(t[i][j-1]>t[i-1][j])
                 {
                     res+=b[j-1];
                     j--;
                 }
-            else
+            else 
                 {
                     res+=a[i-1];
                     i--;
