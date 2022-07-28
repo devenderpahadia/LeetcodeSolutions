@@ -1,29 +1,35 @@
 class Solution {
 public:
-    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        int gap = ceil((float)(m+n)/2);
-        while(gap>0)
-        {
-            int i=0;
-            int j=gap;
-            while(j<m+n){
-                if(j<m && nums1[i]>nums1[j]){
-                    swap(nums1[i],nums1[j]);
+    void merge(vector<int>& A, int n, vector<int>& B, int m) {
+        // int solve(int A[],int n,int B[],int m){
+        int i=n-1;
+        int j=m-1;
+        int k=m+n-1;
+
+        while(i>=0 && j>=0){
+                if(A[i]>B[j]){
+                        A[k]=A[i];
+                        k--;
+                        i--;
                 }
-                else if(j>=m && i<m && nums1[i]>nums2[j-m]){
-                    swap(nums1[i],nums2[j-m]);
+                else{
+                        A[k]=B[j];
+                        k--;
+                        j--;
                 }
-                else if(j>=m && i>=m && nums2[i-m]>nums2[j-m]){
-                    swap(nums2[i-m],nums2[j-m]);
-                }
-                i++;
-                j++;
-            }
-            if(gap==1) break;
-            gap = ceil((float)gap/2);
         }
-        for(int i=m;i<m+n;i++){
-            nums1[i] = nums2[i-m];
+        while(i>=0){
+        	A[k]=A[i];
+                k--;
+                i--;
         }
+        while(j>=0){
+        	A[k]=B[j];
+                k--;
+                j--;
+        }
+         // return A;
+// }
+
     }
 };
