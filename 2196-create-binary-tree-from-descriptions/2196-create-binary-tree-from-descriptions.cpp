@@ -11,59 +11,55 @@
  */
 class Solution {
 public:
+    
+    void solve(TreeNode* root,unordered_map<int,vector<pair<int,int>>>&mp1){
+                // cout<<mp1[root->val][0].second<<endl;
+        if( mp1.count(root->val) && mp1[root->val].size()>0 && mp1[root->val][0].second == 1){
+            // cout<<mp1[root->val][0].first<<endl;
+            root->left = new TreeNode(mp1[root->val][0].first);
+            solve(root->left,mp1);
+        }
+        else if( mp1.count(root->val) && mp1[root->val].size()>0 && mp1[root->val][0].second == 0){
+            // cout<<mp1[root->val][0].first<<endl;
+            root->right = new TreeNode(mp1[root->val][0].first);
+            solve(root->right,mp1);
+        }
+        
+        if( mp1.count(root->val) && mp1[root->val].size()>1 && mp1[root->val][1].second == 1){
+            root->left = new TreeNode(mp1[root->val][1].first);
+            solve(root->left,mp1);
+        }
+        else if( mp1.count(root->val) && mp1[root->val].size()>1 && mp1[root->val][1].second == 0){
+            root->right = new TreeNode(mp1[root->val][1].first);
+            solve(root->right,mp1);
+        }
+        
+    }
+    
     TreeNode* createBinaryTree(vector<vector<int>>& desc) {
-        unordered_map<int,TreeNode*>mp;
-        unordered_map<int,int>mp1;
-        TreeNode* res = NULL;
-        for(auto it : desc)
-        {
-            int nd = it[0];
-            mp1[nd] = 1;
-            if(mp.find(nd)!=mp.end())
-            {
+        TreeNode* root;
+        unordered_map<int,int>mp;
+        unordered_map<int,vector<pair<int,int>>>mp1;
+        vector<int>vec;
+        for(auto it : desc){
+            vec.push_back(it[0]);
+            vec.push_back(it[1]);
+            mp[it[1]]++;
+            mp1[it[0]].push_back({it[1],it[2]});
+        }
+        for(auto it : vec){
+            if(mp.find(it)!=mp.end()){
                 
             }
-            else
-            {
-                TreeNode* nod = new TreeNode(nd);
-                mp[nd] = nod;
-            }
-            int ch = it[1];
-            if(mp.find(ch)!=mp.end())
-            {
-                
-            }
-            else
-            {
-                TreeNode* nod = new TreeNode(ch);
-                mp[ch] = nod;
+            else{
+                root = new TreeNode(it);
             }
         }
         
-        for(auto it : desc)
-        {
-            if(it[2]==1)
-            {
-                mp[it[0]]->left = mp[it[1]];
-            }
-            else if(it[2]==0)
-            {
-                mp[it[0]]->right = mp[it[1]];
-            }
-        }
+        TreeNode* x = root;
         
-        for(auto it : desc)
-        {
-            if(mp1.find(it[1])!=mp1.end())
-            {
-                mp1.erase(it[1]);
-            }
-        }
+        solve(x,mp1);
+        return root;
         
-        for(auto it : mp1)
-        {
-            return mp[it.first];
-        }
-        return res;
     }
 };
