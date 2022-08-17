@@ -11,7 +11,7 @@ public:
         for(auto it : words){
             string str ="";
             for(auto i : it){
-                str+=(mp[i]);
+                str+=(vec[i-'a']);
             }
             st.insert(str);
         }
