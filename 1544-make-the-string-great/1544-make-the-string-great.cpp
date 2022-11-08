@@ -1,63 +1,25 @@
 class Solution {
 public:
     string makeGood(string s) {
-        
-        string str="";
+        int x = 'E'-'e';
         stack<char>st;
-        for(int i=0;i<s.size();)
-        {
-            if(st.empty())
-            {
-                st.push(s[i]);
-                i++;
-                continue;
+        st.push(s[0]);
+        int i=1;
+        while(i<s.size()){
+            if(st.size() && (s[i]-st.top() == x || s[i]-st.top() == (-1)*x)){
+                st.pop();
             }
-            else
-            {
-                if(s[i]>='A' && s[i]<='Z')
-                {
-                    if(st.top() == s[i]-'A' + 'a')
-                    {
-                        st.pop();
-                        i++;
-                        continue;
-                    }
-                    else
-                    {
-                        st.push(s[i]);
-                        i++;
-                        continue;
-                    }
-                }
-                else if(s[i]>='a' && s[i]<='z')
-                {
-                    if(st.top() == s[i]-'a' + 'A')
-                    {
-                        st.pop();
-                        i++;
-                        continue;
-                    }
-                    else
-                    {
-                        st.push(s[i]);
-                        i++;
-                        continue;
-                    }
-                }
-                else
-                {
-                    st.push(s[i]);
-                    i++;
-                    continue;
-                }
-            }            
+            else{
+                st.push(s[i]);
+            }
+            i++;
         }
-        while(st.size())
-        {
-            str+=st.top();
+        string res = "";
+        while(st.size()){
+            res.push_back(st.top());
             st.pop();
         }
-        reverse(str.begin(),str.end());
-        return str;
+        reverse(res.begin(),res.end());
+        return res;
     }
 };
